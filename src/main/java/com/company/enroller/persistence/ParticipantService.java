@@ -2,12 +2,15 @@ package com.company.enroller.persistence;
 
 import java.util.Collection;
 
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.company.enroller.model.Participant;
 
-@Component("participantService")
+@Component("participantService") //component z ktorego moze budowac, spring wie ze moze wstrzyknac
 public class ParticipantService {
 
 	DatabaseConnector connector;
@@ -22,4 +25,26 @@ public class ParticipantService {
 		return query.list();
 	}
 
+	public Participant findByLogin(String login) {
+		return (Participant) connector.getSession().get(Participant.class,login);
+	}
+
+	public void add(Participant participant){
+		Transaction transaction = connector.getSession().beginTransaction();
+		connector.getSession().save(participant);
+		transaction.commit();
+
+	}
+	public void delete(Participant participant){
+		Transaction transaction = connector.getSession().beginTransaction();
+		connector.getSession().delete(participant);
+		transaction.commit();
+
+	}
+	public void update(Participant participant){
+		Transaction transaction = connector.getSession().beginTransaction();
+		connector.getSession().merge(participant);
+		transaction.commit();
+
+	}
 }
