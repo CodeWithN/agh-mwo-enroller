@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import com.company.enroller.model.Participant;
 
-@Component("participantService") //component z ktorego moze budowac, spring wie ze moze wstrzyknac
+@Component("participantService")
 public class ParticipantService {
 
 	DatabaseConnector connector;

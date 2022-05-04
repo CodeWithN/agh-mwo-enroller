@@ -18,12 +18,13 @@ public class ParticipantRestController {
 	@Autowired
 	ParticipantService participantService;
 
+	//display attendees as a list
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ResponseEntity<?> getParticipants() {
 		Collection<Participant> participants = participantService.getAll();
 		return new ResponseEntity<Collection<Participant>>(participants, HttpStatus.OK);
 	}
-//exercises1
+		//exercises1 -  find one participant by login
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getParticipant(@PathVariable("id") String login) {
 		Participant participant = participantService.findByLogin(login);
@@ -31,17 +32,15 @@ public class ParticipantRestController {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Participant>(participant, HttpStatus.OK);
-		//controller juz tutaj pyta czy istnieje wiec nie trzeba pchac do serwisu
 	}
-
 
 	// POST - Adding the participants
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public ResponseEntity<?> registerParticipant(@RequestBody Participant participant) {
 
 		Participant foundParticipant = participantService.findByLogin(participant.getLogin());
-		//checking if the participant exists
-		if (foundParticipant != null) {//spradze czy taki istanieje
+
+		if (foundParticipant != null) { //checking if the participant exists
 			return new ResponseEntity<String>("Unable to create. Already exists", HttpStatus.NOT_FOUND);
 		}
 		participantService.add(participant);  //Add new if not exist
@@ -74,6 +73,4 @@ public class ParticipantRestController {
 		participantService.update(participant);
 		return new ResponseEntity<Participant>(participant, HttpStatus.OK);
 	}
-
-
 }
