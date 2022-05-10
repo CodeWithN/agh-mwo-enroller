@@ -1,29 +1,26 @@
 package com.company.enroller.model;
-
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "meeting")
+
 public class Meeting {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-
-	@Column
-	private String date;
 
 	@Column
 	private String title;
 
 	@Column
 	private String description;
+
+	@Column
+	private String date;
 
 
 	@JsonIgnore
@@ -36,12 +33,12 @@ public class Meeting {
 		return id;
 	}
 
-	public String getDate() {
-		return date;
-	}
-
 	public String getTitle() {
 		return title;
+	}
+
+	public String getDate() {
+		return date;
 	}
 
 	public String getDescription() {
@@ -52,17 +49,19 @@ public class Meeting {
 		this.id = id;
 	}
 
-	public void setDate(String date) {
-		this.date = date;
-	}
-
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
+	public Collection<Participant> getParticipants() {
+		return participants;
+	}
 
 }

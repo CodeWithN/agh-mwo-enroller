@@ -42,4 +42,13 @@ public class MeetingRestController {
     }
 
 
+    // POST - Adding the meeting
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public ResponseEntity<?> registerNewMeeting(@RequestBody Meeting meeting) {
+
+        Meeting newMeeting = meetingService.addNewMeeting(meeting);
+        return new ResponseEntity<Meeting>(newMeeting, HttpStatus.OK);
+    }
+
+
 }
