@@ -35,4 +35,9 @@ public class MeetingService {
 		return (Meeting) connector.getSession().get(Meeting.class, id);
 	}
 
+	public void deleteMeeting(Meeting meeting) {
+		Transaction transaction = connector.getSession().beginTransaction();
+		connector.getSession().delete(meeting);
+		transaction.commit();
+	}
 }
