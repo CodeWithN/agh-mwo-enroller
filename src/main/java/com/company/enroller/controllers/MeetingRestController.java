@@ -76,6 +76,14 @@ public class MeetingRestController {
         return new ResponseEntity<Collection<Participant>>(meeting.getParticipants(), HttpStatus.OK);
     }
 
-
+    //Displaying the participants of the selected meeting
+    @RequestMapping(value = "/{id}/participants", method = RequestMethod.GET)
+    public ResponseEntity<?> getParticipantsFromMeeting(@PathVariable("id") long id) {
+        Meeting meeting = meetingService.findById(id);
+        if(meeting == null) {
+            return new ResponseEntity<>("Wrong meeting ID, put correct value", HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<Collection<Participant>>(meeting.getParticipants(), HttpStatus.OK);
+    }
 
 }
