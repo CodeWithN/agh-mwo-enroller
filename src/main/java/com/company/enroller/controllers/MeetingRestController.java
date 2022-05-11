@@ -61,4 +61,21 @@ public class MeetingRestController {
         return new ResponseEntity<>("The meeting has been deleted", HttpStatus.OK);
     }
 
+    //  Adding participants to the meeting
+    @RequestMapping(value = "/{id}/{login}", method = RequestMethod.POST)
+    public ResponseEntity<?> addParticipantToMeeting(@PathVariable("id") long id, @PathVariable("login") String login) {
+        Meeting meeting = meetingService.findById(id);
+        Participant participant = participantService.findByLogin(login);
+
+        if(meeting.getParticipants().contains(participant)) {
+            return new ResponseEntity<>("Participant exist, you can't add it again", HttpStatus.CONFLICT);
+        } else if (participant == null) {
+            return new ResponseEntity<>("Participant does not exist", HttpStatus.CONFLICT);
+        }
+        meeting.addParticipant(participant);
+        return new ResponseEntity<Collection<Participant>>(meeting.getParticipants(), HttpStatus.OK);
+    }
+
+
+
 }

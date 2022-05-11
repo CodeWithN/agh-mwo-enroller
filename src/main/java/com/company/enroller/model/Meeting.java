@@ -66,4 +66,7 @@ public class Meeting {
 		return participants;
 	}
 
+	public void addParticipant(Participant participant) {
+		this.participants.add(participant);
+	}
 }
